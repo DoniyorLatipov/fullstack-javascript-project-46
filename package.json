@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "program that determines the difference between two data structures",
   "main": "index.js",
+  "bin": {
+    "genDiff": "bin/genDiff.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
