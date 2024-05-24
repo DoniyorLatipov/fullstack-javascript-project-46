@@ -2,16 +2,24 @@ const parse = require('./src/parse.js');
 const _ = require('lodash');
 
 function difference(filepath1, filepath2) {
-  const data1 = parse(filepath1);
-  const data2 = parse(filepath2);
-  const res = [];
+  const data = [
+    ...parse(filepath1).map((el) => `- ${el}`),
+    ...parse(filepath2).map((el) => `+ ${el}`),
+  ];
 
-  data1.forEach((line) => res.push(data2.includes(line) ? `  ${line}` : `- ${line}`));
-  data2.forEach((line) => res.push(data1.includes(line) ? `  ${line}` : `+ ${line}`));
+  const res = data.map((line) => {
+    const value = line.slice(2);
+    const opposite = line[0] === '+' ? `- ${value}` : `+ ${value}`;
+    console.log(line, opposite);
+    if (data.includes(opposite)) {
+      return `  ${value}`;
+    }
+    return line;
+  });
 
   const sortedRes = _.uniq(_.sortBy(res, (el) => el.slice(2, el.indexOf(':'))));
   console.log(`{\n${' '.repeat(2)}${sortedRes.join(`,\n${' '.repeat(2)}`)}\n}\n`);
-  // for nested
+  // repeat for nested
 }
 
 module.exports = difference;
