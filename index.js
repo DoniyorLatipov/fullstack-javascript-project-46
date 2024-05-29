@@ -1,25 +1,28 @@
-const parse = require('./src/parse.js');
-const _ = require('lodash');
+const parse = require('./src/parse');
+const getDiff = require('./src/getDiff');
+const render = require('./src/render');
 
-function difference(filepath1, filepath2) {
-  const data = [
-    ...parse(filepath1).map((el) => `- ${el}`),
-    ...parse(filepath2).map((el) => `+ ${el}`),
-  ];
+function difference(filepath1, filepath2, { format = 'stylish' }) {
+  const data1 = parse(filepath1);
+  const data2 = parse(filepath2);
 
-  const res = data.map((line) => {
-    const value = line.slice(2);
-    const opposite = line[0] === '+' ? `- ${value}` : `+ ${value}`;
-    console.log(line, opposite);
-    if (data.includes(opposite)) {
-      return `  ${value}`;
-    }
-    return line;
-  });
-
-  const sortedRes = _.uniq(_.sortBy(res, (el) => el.slice(2, el.indexOf(':'))));
-  console.log(`{\n${' '.repeat(2)}${sortedRes.join(`,\n${' '.repeat(2)}`)}\n}\n`);
-  // repeat for nested
+  const difference = getDiff(data1, data2);
+  render(difference, format);
 }
 
 module.exports = difference;
+
+console.log([
+  [' ', 'host', 'hexlet.io'],
+  [
+    ' ',
+    'system',
+    [
+      [' ', 'ip', '123.22'],
+      ['-', 'os', 'Linux'],
+      ['+', 'os', 'Windows'],
+    ],
+  ],
+  ['-', 'timeout', 10],
+  ['+', 'timeout', 20],
+]);
