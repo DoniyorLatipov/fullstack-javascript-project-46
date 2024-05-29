@@ -1,21 +1,32 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "program that determines the difference between two data structures",
+  "description": "prints the difference between two JSON files in the selected format",
   "main": "index.js",
   "bin": {
-    "genDiff": "bin/genDiff.js"
+    "gendiff": "bin/genDiff.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoniyorLatipov/fullstack-javascript-project-46.git"
   },
   "keywords": [
     "difference"
   ],
-  "author": "doniyor",
+  "author": "Doniyor Latipov",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DoniyorLatipov/fullstack-javascript-project-46/issues"
+  },
+  "homepage": "https://github.com/DoniyorLatipov/fullstack-javascript-project-46#readme",
   "dependencies": {
-    "commander": "^12.0.0",
+    "commander": "^12.1.0",
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
