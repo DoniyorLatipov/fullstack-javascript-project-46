@@ -7,5 +7,8 @@ publish:
 link:
 	npm link
 
+lint:
+	npx eslint .
+
 test:
 	npx jest
