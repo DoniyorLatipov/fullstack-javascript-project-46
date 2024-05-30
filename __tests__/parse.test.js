@@ -1,4 +1,4 @@
-/* global describe, test, expect */
+/* global describe, test, expect, beforeAll, afterAll */
 import parse from '../src/parse.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';

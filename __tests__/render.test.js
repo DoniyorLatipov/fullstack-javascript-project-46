@@ -1,4 +1,4 @@
-/* global describe, test, expect */
+/* global describe, test, expect, it */
 import render from '../src/render.js';
 import { jest } from '@jest/globals';
 
