@@ -27,8 +27,8 @@ const expectedPlane = `{
 }`;
 const expectedNested = `{
     main: {
-      id: #23SID,
-    + ip: 231.4
+        id: #23SID,
+      + ip: 231.4
     },
   - mode: free,
   + os: Linux
