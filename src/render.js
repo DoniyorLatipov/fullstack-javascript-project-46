@@ -1,11 +1,11 @@
 import _ from 'lodash';
 
 function stylishRender(data) {
-  if (data.length === 0) {
-    console.log('{}');
-  }
-
   const iter = (data, depth) => {
+    if (data.length === 0) {
+      return '{}';
+    }
+
     const res = data.map(([symbol, key, value]) => {
       return `${symbol} ${key}: ${_.isArray(value) ? iter(value, depth + 1) : value}`;
     });
