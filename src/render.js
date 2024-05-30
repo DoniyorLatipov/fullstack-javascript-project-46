@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
 function stylishRender(data) {
   if (data.length === 0) {
@@ -18,7 +18,7 @@ function stylishRender(data) {
   console.log(iter(data, 1));
 }
 
-function render(data, format) {
+export default function render(data, format) {
   switch (format) {
     case 'stylish':
       stylishRender(data);
@@ -27,5 +27,3 @@ function render(data, format) {
       throw new Error(`unknown format, used ${format}`);
   }
 }
-
-module.exports = render;

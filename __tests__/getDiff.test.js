@@ -1,4 +1,5 @@
-const getDiff = require('../src/getDiff');
+/* global describe, test, expect */
+import getDiff from '../src/getDiff.js';
 
 describe("getDiff's main flow", () => {
   test('getDiff plane', () => {

@@ -1,6 +1,6 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
-function getDiff(data1, data2) {
+export default function getDiff(data1, data2) {
   const keys1 = Object.keys(data1);
   const keys2 = Object.keys(data2);
   const keys = _.union(keys1, keys2).sort();
@@ -23,5 +23,3 @@ function getDiff(data1, data2) {
 
   return res;
 }
-
-module.exports = getDiff;

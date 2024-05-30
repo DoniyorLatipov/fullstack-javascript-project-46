@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "prints the difference between two JSON files in the selected format",
   "main": "index.js",
+  "type": "module",
   "bin": {
     "gendiff": "bin/genDiff.js"
   },

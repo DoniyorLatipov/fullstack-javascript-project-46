@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const { program } = require('commander');
-const difference = require('../index');
+import { program } from 'commander';
+import difference from '../index.js';
 
 program
   .description('Compares two configuration files and shows a difference.')

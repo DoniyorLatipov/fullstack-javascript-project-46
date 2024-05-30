@@ -1,5 +1,11 @@
-const parse = require('../src/parse');
-const fs = require('fs');
+/* global describe, test, expect */
+import parse from '../src/parse.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import fs from 'fs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 describe("parse's main flow", () => {
   beforeAll(() => {

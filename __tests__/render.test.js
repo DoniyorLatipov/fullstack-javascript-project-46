@@ -1,4 +1,6 @@
-const render = require('../src/render');
+/* global describe, test, expect */
+import render from '../src/render.js';
+import { jest } from '@jest/globals';
 
 const plane = [
   ['+', 'main', '#23SID'],

@@ -1,7 +1,5 @@
-const fs = require('fs');
+import fs from 'fs';
 
-function parse(path) {
+export default function parse(path) {
   return JSON.parse(fs.readFileSync(path, 'utf8', () => {}));
 }
-
-module.exports = parse;
