@@ -36,14 +36,14 @@ const expectedNested = `{
 
 describe("reder's main flow", () => {
   describe('stylish render', () => {
+    console.log = jest.fn();
+
     it('plane render', () => {
-      console.log = jest.fn();
       render(plane, 'stylish');
       expect(console.log).toHaveBeenCalledWith(expectedPlane);
     });
 
     it('nested render', () => {
-      console.log = jest.fn();
       render(nested, 'stylish');
       expect(console.log).toHaveBeenCalledWith(expectedNested);
     });
