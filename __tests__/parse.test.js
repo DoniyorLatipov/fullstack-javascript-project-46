@@ -16,31 +16,60 @@ describe("parse's main flow", () => {
     fs.rmSync(`${__dirname}/__fixtures__`, { recursive: true });
   });
 
-  test('parse plane file', () => {
-    const filePath = `${__dirname}/__fixtures__/plane.json`;
-    fs.writeFileSync(filePath, '{\n  "host": "hexlet.io",\n  "timeout": 10\n}\n');
-    const data = parse(filePath);
+  describe('parse JSON file', () => {
+    test('parse plane file', () => {
+      const filePath = `${__dirname}/__fixtures__/plane.json`;
+      fs.writeFileSync(filePath, '{\n  "host": "hexlet.io",\n  "timeout": 10\n}\n');
+      const data = parse(filePath);
 
-    expect(data).toStrictEqual({
-      host: 'hexlet.io',
-      timeout: 10,
+      expect(data).toStrictEqual({
+        host: 'hexlet.io',
+        timeout: 10,
+      });
+    });
+
+    test('parse nested file', () => {
+      const filePath = `${__dirname}/__fixtures__/nested.json`;
+      fs.writeFileSync(
+        filePath,
+        '{\n  "host": "hexlet.io",\n  "system": {\n   "time": 128,\n    "os": "Linux"\n  }\n}\n',
+      );
+      const data = parse(filePath);
+
+      expect(data).toStrictEqual({
+        host: 'hexlet.io',
+        system: {
+          time: 128,
+          os: 'Linux',
+        },
+      });
     });
   });
 
-  test('parse nested file', () => {
-    const filePath = `${__dirname}/__fixtures__/nested.json`;
-    fs.writeFileSync(
-      filePath,
-      '{\n  "host": "hexlet.io",\n  "system": {\n   "time": 128,\n    "os": "Linux"\n  }\n}\n',
-    );
-    const data = parse(filePath);
+  describe('parse YAML file', () => {
+    test('parse plane file', () => {
+      const filePath = `${__dirname}/__fixtures__/plane.yaml`;
+      fs.writeFileSync(filePath, '---\nhost: hexlet.io\ntimeout: 10\n');
+      const data = parse(filePath);
 
-    expect(data).toStrictEqual({
-      host: 'hexlet.io',
-      system: {
-        time: 128,
-        os: 'Linux',
-      },
+      expect(data).toStrictEqual({
+        host: 'hexlet.io',
+        timeout: 10,
+      });
+    });
+
+    test('parse nested file', () => {
+      const filePath = `${__dirname}/__fixtures__/nested.yml`;
+      fs.writeFileSync(filePath, '---\nhost: hexlet.io\nsystem:\n  time: 128\n  os: Linux\n');
+      const data = parse(filePath);
+
+      expect(data).toStrictEqual({
+        host: 'hexlet.io',
+        system: {
+          time: 128,
+          os: 'Linux',
+        },
+      });
     });
   });
 });
