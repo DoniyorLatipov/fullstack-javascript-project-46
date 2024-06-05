@@ -74,13 +74,18 @@ describe("parse's main flow", () => {
   });
 });
 
-describe('parse non-existent file', () => {
+describe('parse invalid file', () => {
   test('parse isEmpty', () => {
-    expect(() => parse()).toThrow();
+    expect(() => parse()).toThrowError();
   });
 
-  test('parse', () => {
-    const nonExistentData = `${__dirname}/__fixtures__/non-existent.json`;
-    expect(() => parse(nonExistentData)).toThrow();
+  test('parse invalid format', () => {
+    const unknownFileFormat = `${__dirname}/__fixtures__/unknown.exe`;
+    expect(() => parse(unknownFileFormat)).toThrowError();
+  });
+
+  test('parse non-existent file', () => {
+    const nonExistentFile = `${__dirname}/__fixtures__/non-existent.json`;
+    expect(() => parse(nonExistentFile)).toThrowError();
   });
 });
