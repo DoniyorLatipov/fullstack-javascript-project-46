@@ -2,25 +2,27 @@
 import getDiff from '../src/getDiff.js';
 
 describe("getDiff's main flow", () => {
+  let expected;
+
   describe('getDiff plane', () => {
     const data1 = { host: 'hexlet.io', timeout: 10 };
     const data2 = { timeout: 20, verbose: true, host: 'hexlet.io' };
 
     test('stylish format', () => {
-      const expectedStylishPlane = `{
+      expected = `{
     host: hexlet.io
   - timeout: 10
   + timeout: 20
   + verbose: true
 }`;
-      expect(getDiff(data1, data2, 'stylish')).toBe(expectedStylishPlane);
+      expect(getDiff(data1, data2, 'stylish')).toBe(expected);
     });
 
     test('plain format', () => {
-      const expectedPlainPlane = `Property 'timeout' was updated. From 10 to 20
+      expected = `Property 'timeout' was updated. From 10 to 20
 Property 'verbose' was added with value: true`;
 
-      expect(getDiff(data1, data2, 'plain')).toBe(expectedPlainPlane);
+      expect(getDiff(data1, data2, 'plain')).toBe(expected);
     });
   });
 
@@ -85,7 +87,7 @@ Property 'verbose' was added with value: true`;
     };
 
     test('stylish format', () => {
-      const expectedStylishNested = `{
+      const expected = `{
     common: {
       + follow: false
         setting1: Value 1
@@ -129,11 +131,11 @@ Property 'verbose' was added with value: true`;
         fee: 100500
     }
 }`;
-      expect(getDiff(data1, data2, 'stylish')).toBe(expectedStylishNested);
+      expect(getDiff(data1, data2, 'stylish')).toBe(expected);
     });
 
     test('plain format', () => {
-      const expectedPlainNested = `Property 'common.follow' was added with value: false
+      const expected = `Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
 Property 'common.setting3' was updated. From true to null
 Property 'common.setting4' was added with value: 'blah blah'
@@ -144,7 +146,7 @@ Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
-      expect(getDiff(data1, data2, 'plain')).toBe(expectedPlainNested);
+      expect(getDiff(data1, data2, 'plain')).toBe(expected);
     });
   });
 });
