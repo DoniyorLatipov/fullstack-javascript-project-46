@@ -20,6 +20,8 @@ export default function getStylishDiff(data1, data2) {
   return iter(difference, 0);
 }
 
+const extractor = (el) => (_.isObject(el) ? getStylishFormatDiff(el, el) : el);
+
 function getStylishFormatDiff(data1, data2) {
   const keys1 = Object.keys(data1);
   const keys2 = Object.keys(data2);
@@ -36,11 +38,11 @@ function getStylishFormatDiff(data1, data2) {
       difference.push([' ', key, value1]);
     } else {
       if (Object.hasOwn(data1, key)) {
-        const curValue1 = _.isObject(value1) ? getStylishFormatDiff(value1, value1) : value1;
+        const curValue1 = extractor(value1);
         difference.push(['-', key, curValue1]);
       }
       if (Object.hasOwn(data2, key)) {
-        const curValue2 = _.isObject(value2) ? getStylishFormatDiff(value2, value2) : value2;
+        const curValue2 = extractor(value2);
         difference.push(['+', key, curValue2]);
       }
     }
