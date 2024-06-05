@@ -31,7 +31,7 @@ Property 'verbose' was added with value: true`;
         setting2: 200,
         setting3: true,
         setting6: {
-          key: 'value',
+          key: {},
           doge: {
             wow: '',
           },
@@ -62,7 +62,7 @@ Property 'verbose' was added with value: true`;
           key5: 'value5',
         },
         setting6: {
-          key: 'value',
+          key: {},
           ops: 'vops',
           doge: {
             wow: 'so much',
@@ -101,7 +101,7 @@ Property 'verbose' was added with value: true`;
               - wow: 
               + wow: so much
             }
-            key: value
+            key: {}
           + ops: vops
         }
     }
@@ -146,5 +146,15 @@ Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
       expect(getDiff(data1, data2, 'plain')).toBe(expectedPlainNested);
     });
+  });
+});
+
+describe("getDiff's invalid format", () => {
+  test('empty format', () => {
+    expect(() => getDiff({}, {}, '')).toThrowError();
+  });
+
+  test('unknown format', () => {
+    expect(() => getDiff({}, {}, 'stplain')).toThrowError();
   });
 });
