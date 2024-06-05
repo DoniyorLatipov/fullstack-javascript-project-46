@@ -26,13 +26,10 @@ export default function plainDiff(data1, data2) {
 
       if (!Object.hasOwn(data2, key)) {
         acc.push(`Property '${pathArray.join('')}${key}' was removed`);
-        return acc;
       } else if (!Object.hasOwn(data1, key)) {
         acc.push(`Property '${pathArray.join('')}${key}' was added with value: ${value2}`);
-        return acc;
       } else if (value1 !== value2) {
         acc.push(`Property '${pathArray.join('')}${key}' was updated. From ${value1} to ${value2}`);
-        return acc;
       }
       return acc;
     }, []);
