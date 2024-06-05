@@ -2,27 +2,22 @@
 import getDiff from '../src/getDiff.js';
 
 describe("getDiff's main flow", () => {
-  let expected;
-
   describe('getDiff plane', () => {
     const data1 = { host: 'hexlet.io', timeout: 10 };
     const data2 = { timeout: 20, verbose: true, host: 'hexlet.io' };
 
     test('stylish format', () => {
-      expected = `{
+      expect(getDiff(data1, data2, 'stylish')).toBe(`{
     host: hexlet.io
   - timeout: 10
   + timeout: 20
   + verbose: true
-}`;
-      expect(getDiff(data1, data2, 'stylish')).toBe(expected);
+}`);
     });
 
     test('plain format', () => {
-      expected = `Property 'timeout' was updated. From 10 to 20
-Property 'verbose' was added with value: true`;
-
-      expect(getDiff(data1, data2, 'plain')).toBe(expected);
+      expect(getDiff(data1, data2, 'plain')).toBe(`Property 'timeout' was updated. From 10 to 20
+Property 'verbose' was added with value: true`);
     });
   });
 
@@ -87,7 +82,7 @@ Property 'verbose' was added with value: true`;
     };
 
     test('stylish format', () => {
-      expected = `{
+      expect(getDiff(data1, data2, 'stylish')).toBe(`{
     common: {
       + follow: false
         setting1: Value 1
@@ -130,12 +125,12 @@ Property 'verbose' was added with value: true`;
         }
         fee: 100500
     }
-}`;
-      expect(getDiff(data1, data2, 'stylish')).toBe(expected);
+}`);
     });
 
     test('plain format', () => {
-      expected = `Property 'common.follow' was added with value: false
+      expect(getDiff(data1, data2, 'plain'))
+        .toBe(`Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
 Property 'common.setting3' was updated. From true to null
 Property 'common.setting4' was added with value: 'blah blah'
@@ -145,8 +140,7 @@ Property 'common.setting6.ops' was added with value: 'vops'
 Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
-Property 'group3' was added with value: [complex value]`;
-      expect(getDiff(data1, data2, 'plain')).toBe(expected);
+Property 'group3' was added with value: [complex value]`);
     });
   });
 });
