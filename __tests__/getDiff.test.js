@@ -87,7 +87,7 @@ Property 'verbose' was added with value: true`;
     };
 
     test('stylish format', () => {
-      const expected = `{
+      expected = `{
     common: {
       + follow: false
         setting1: Value 1
@@ -135,7 +135,7 @@ Property 'verbose' was added with value: true`;
     });
 
     test('plain format', () => {
-      const expected = `Property 'common.follow' was added with value: false
+      expected = `Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
 Property 'common.setting3' was updated. From true to null
 Property 'common.setting4' was added with value: 'blah blah'
