@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import getKeys from '../getKeys.js';
 
 function getFormatedValue(value) {
   if (_.isObject(value)) {
@@ -11,9 +12,7 @@ function getFormatedValue(value) {
 
 export default function plainDiff(data1, data2) {
   const iter = (data1, data2, pathArray) => {
-    const keys1 = Object.keys(data1);
-    const keys2 = Object.keys(data2);
-    const keys = _.union(keys1, keys2).sort();
+    const keys = getKeys(data1, data2);
 
     return keys.reduce((acc, key) => {
       if (_.isObject(data1[key]) && _.isObject(data2[key])) {
