@@ -19,6 +19,12 @@ describe("getDiff's main flow", () => {
       expect(getDiff(data1, data2, 'plain')).toBe(`Property 'timeout' was updated. From 10 to 20
 Property 'verbose' was added with value: true`);
     });
+
+    test('stylish format', () => {
+      expect(getDiff(data1, data2, 'json')).toBe(
+        `{"changed":{"":{"old":10,"new":20}},"added":{"":true},"removed":{}}`,
+      );
+    });
   });
 
   describe('getDiff nested', () => {
@@ -141,6 +147,12 @@ Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`);
+    });
+
+    test('json format', () => {
+      expect(getDiff(data1, data2, 'json')).toBe(
+        `{"changed":{"['common']":{"old":true,"new":null},"['common']['setting6']['doge']":{"old":"","new":"so much"},"['group1']":{"old":{"key":"value"},"new":"str"}},"added":{"['common']":{"key5":"value5"},"['common']['setting6']":"vops","":{"deep":{"id":{"number":45}},"fee":100500}},"removed":{"['common']":200,"":{"abc":12345,"deep":{"id":45}}}}`,
+      );
     });
   });
 });
