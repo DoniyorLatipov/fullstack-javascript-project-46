@@ -27,5 +27,5 @@ export default function jsonDiff(data1, data2) {
   };
 
   const res = iter(data1, data2, []);
-  return JSON.stringify(res);
+  return JSON.stringify(res, null, '  ');
 }
