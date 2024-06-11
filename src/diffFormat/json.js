@@ -9,16 +9,16 @@ export default function jsonDiff(data1, data2) {
       (acc, key) => {
         const value1 = data1[key];
         const value2 = data2[key];
-        const path = pathArray.join('');
+        const path = [...pathArray, `['${key}']`];
 
         if (_.isObject(value1) && _.isObject(value2)) {
-          acc = _.merge(acc, iter(value1, value2, [...pathArray, `['${key}']`]));
+          acc = _.merge(acc, iter(value1, value2, path));
         } else if (!Object.hasOwn(data2, key)) {
-          acc.removed[path] = value1;
+          acc.removed[path.join('')] = value1;
         } else if (!Object.hasOwn(data1, key)) {
-          acc.added[path] = value2;
+          acc.added[path.join('')] = value2;
         } else if (value1 !== value2) {
-          acc.changed[path] = { old: value1, new: value2 };
+          acc.changed[path.join('')] = { old: value1, new: value2 };
         }
         return acc;
       },
