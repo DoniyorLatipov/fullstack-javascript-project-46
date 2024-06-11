@@ -21,20 +21,18 @@ Property 'verbose' was added with value: true`);
     });
 
     test('stylish format', () => {
-      expect(getDiff(data1, data2, 'json')).toBe(
-        `{
+      expect(getDiff(data1, data2, 'json')).toBe(`{
   "changed": {
-    "": {
+    "['timeout']": {
       "old": 10,
       "new": 20
     }
   },
   "added": {
-    "": true
+    "['verbose']": true
   },
   "removed": {}
-}`,
-      );
+}`);
     });
   });
 
@@ -161,18 +159,21 @@ Property 'group3' was added with value: [complex value]`);
     });
 
     test('json format', () => {
-      expect(getDiff(data1, data2, 'json')).toBe(
-        `{
+      expect(getDiff(data1, data2, 'json')).toBe(`{
   "changed": {
-    "['common']": {
+    "['common']['setting3']": {
       "old": true,
       "new": null
     },
-    "['common']['setting6']['doge']": {
+    "['common']['setting6']['doge']['wow']": {
       "old": "",
       "new": "so much"
     },
-    "['group1']": {
+    "['group1']['baz']": {
+      "old": "bas",
+      "new": "bars"
+    },
+    "['group1']['nest']": {
       "old": {
         "key": "value"
       },
@@ -180,11 +181,13 @@ Property 'group3' was added with value: [complex value]`);
     }
   },
   "added": {
-    "['common']": {
+    "['common']['follow']": false,
+    "['common']['setting4']": "blah blah",
+    "['common']['setting5']": {
       "key5": "value5"
     },
-    "['common']['setting6']": "vops",
-    "": {
+    "['common']['setting6']['ops']": "vops",
+    "['group3']": {
       "deep": {
         "id": {
           "number": 45
@@ -194,16 +197,15 @@ Property 'group3' was added with value: [complex value]`);
     }
   },
   "removed": {
-    "['common']": 200,
-    "": {
+    "['common']['setting2']": 200,
+    "['group2']": {
       "abc": 12345,
       "deep": {
         "id": 45
       }
     }
   }
-}`,
-      );
+}`);
     });
   });
 });
