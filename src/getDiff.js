@@ -1,6 +1,6 @@
-import stylishDiff from './diffFormat/stylish.js';
-import plainDiff from './diffFormat/plain.js';
-import jsonDiff from './diffFormat/json.js';
+import stylishDiff from './formatters/stylish.js';
+import plainDiff from './formatters/plain.js';
+import jsonDiff from './formatters/json.js';
 
 export default function getDiff(data1, data2, format) {
   switch (format) {
