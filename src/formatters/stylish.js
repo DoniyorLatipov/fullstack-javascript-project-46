@@ -1,9 +1,6 @@
 import _ from 'lodash';
-import getKeys from '../getKeys.js';
 
-export default function getStylishDiff(data1, data2) {
-  const difference = getStylishFormatDiff(data1, data2);
-
+function getConvertedStylishDiff(difference) {
   const iter = (data, depth) => {
     if (data.length === 0) {
       return '{}';
@@ -21,31 +18,45 @@ export default function getStylishDiff(data1, data2) {
   return iter(difference, 0);
 }
 
-const extractor = (el) => (_.isObject(el) ? getStylishFormatDiff(el, el) : el);
+const extractor = (el) => {
+  if (!_.isObject(el)) {
+    return el;
+  }
 
-function getStylishFormatDiff(data1, data2) {
-  const keys = getKeys(data1, data2);
-  const difference = [];
-
-  keys.forEach((key) => {
-    const value1 = data1[key];
-    const value2 = data2[key];
-
-    if (_.isObject(value1) && _.isObject(value2)) {
-      difference.push([' ', key, getStylishFormatDiff(value1, value2)]);
-    } else if (value1 === value2) {
-      difference.push([' ', key, value1]);
-    } else {
-      if (Object.hasOwn(data1, key)) {
-        const curValue1 = extractor(value1);
-        difference.push(['-', key, curValue1]);
-      }
-      if (Object.hasOwn(data2, key)) {
-        const curValue2 = extractor(value2);
-        difference.push(['+', key, curValue2]);
-      }
-    }
+  const children = Object.entries(el);
+  return children.map(([key, value]) => {
+    return [' ', key, extractor(value)];
   });
+};
 
-  return difference;
-}
+const stylishAssets = {
+  iterValue: 0,
+  getDefaultAcc() {
+    return [];
+  },
+  getNewIterValue(depth) {
+    return depth + 1;
+  },
+  merge(acc, childAcc, key) {
+    return [...acc, [' ', key, childAcc]];
+  },
+  addChanged(acc, key, value1, value2) {
+    const prop1 = ['-', key, extractor(value1)];
+    const prop2 = ['+', key, extractor(value2)];
+    return [...acc, prop1, prop2];
+  },
+  addAdded(acc, key, value2) {
+    const value = extractor(value2);
+    return [...acc, ['+', key, value]];
+  },
+  addRemoved(acc, key, value1) {
+    const value = extractor(value1);
+    return [...acc, ['-', key, value]];
+  },
+  addUnchanged(acc, key, value1) {
+    return [...acc, [' ', key, value1]];
+  },
+  convert: getConvertedStylishDiff,
+};
+
+export default stylishAssets;

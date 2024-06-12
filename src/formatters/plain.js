@@ -1,7 +1,6 @@
 import _ from 'lodash';
-import getKeys from '../getKeys.js';
 
-function getFormatedValue(value) {
+function formatValue(value) {
   if (_.isObject(value)) {
     return '[complex value]';
   } else if (_.isString(value)) {
@@ -10,30 +9,38 @@ function getFormatedValue(value) {
   return value;
 }
 
-export default function plainDiff(data1, data2) {
-  const iter = (data1, data2, pathArray) => {
-    const keys = getKeys(data1, data2);
+const plainAssets = {
+  iterValue: [],
+  getDefaultAcc() {
+    return [];
+  },
+  getNewIterValue(pathArray, key) {
+    return [...pathArray, `${key}.`];
+  },
+  merge(acc, childAcc) {
+    return [...acc, ...childAcc];
+  },
+  addChanged(acc, key, value1, value2, pathArray) {
+    const formatedVal1 = formatValue(value1);
+    const formatedVal2 = formatValue(value2);
+    return [
+      ...acc,
+      `Property '${pathArray.join('')}${key}' was updated. From ${formatedVal1} to ${formatedVal2}`,
+    ];
+  },
+  addAdded(acc, key, value2, pathArray) {
+    const formatedVal = formatValue(value2);
+    return [...acc, `Property '${pathArray.join('')}${key}' was added with value: ${formatedVal}`];
+  },
+  addRemoved(acc, key, value1, pathArray) {
+    return [...acc, `Property '${pathArray.join('')}${key}' was removed`];
+  },
+  addUnchanged(acc) {
+    return acc;
+  },
+  convert(difference) {
+    return difference.join('\n');
+  },
+};
 
-    return keys.reduce((acc, key) => {
-      if (_.isObject(data1[key]) && _.isObject(data2[key])) {
-        acc.push(...iter(data1[key], data2[key], [...pathArray, `${key}.`]));
-        return acc;
-      }
-
-      const value1 = getFormatedValue(data1[key]);
-      const value2 = getFormatedValue(data2[key]);
-
-      if (!Object.hasOwn(data2, key)) {
-        acc.push(`Property '${pathArray.join('')}${key}' was removed`);
-      } else if (!Object.hasOwn(data1, key)) {
-        acc.push(`Property '${pathArray.join('')}${key}' was added with value: ${value2}`);
-      } else if (value1 !== value2) {
-        acc.push(`Property '${pathArray.join('')}${key}' was updated. From ${value1} to ${value2}`);
-      }
-      return acc;
-    }, []);
-  };
-
-  const res = iter(data1, data2, []);
-  return res.join('\n');
-}
+export default plainAssets;

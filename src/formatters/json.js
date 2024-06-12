@@ -1,31 +1,42 @@
 import _ from 'lodash';
-import getKeys from '../getKeys.js';
 
-export default function jsonDiff(data1, data2) {
-  const iter = (data1, data2, pathArray) => {
-    const keys = getKeys(data1, data2);
+const getCurrentPath = (pathArray, key) => `${pathArray.join('')}['${key}']`;
 
-    return keys.reduce(
-      (acc, key) => {
-        const value1 = data1[key];
-        const value2 = data2[key];
-        const path = [...pathArray, `['${key}']`];
+const jsonAssets = {
+  iterValue: [],
+  getDefaultAcc() {
+    return { changed: {}, added: {}, removed: {} };
+  },
+  getNewIterValue(pathArray, key) {
+    return [...pathArray, `['${key}']`];
+  },
+  merge(acc, childAcc) {
+    return _.merge(acc, childAcc);
+  },
+  addChanged(acc, key, value1, value2, pathArray) {
+    const newAcc = { ...acc };
+    const path = getCurrentPath(pathArray, key);
+    newAcc.changed[path] = { old: value1, new: value2 };
+    return newAcc;
+  },
+  addAdded(acc, key, value2, pathArray) {
+    const newAcc = { ...acc };
+    const path = getCurrentPath(pathArray, key);
+    newAcc.added[path] = value2;
+    return newAcc;
+  },
+  addRemoved(acc, key, value1, pathArray) {
+    const newAcc = { ...acc };
+    const path = getCurrentPath(pathArray, key);
+    newAcc.removed[path] = value1;
+    return newAcc;
+  },
+  addUnchanged(acc) {
+    return acc;
+  },
+  convert(difference) {
+    return JSON.stringify(difference, null, '  ');
+  },
+};
 
-        if (_.isObject(value1) && _.isObject(value2)) {
-          acc = _.merge(acc, iter(value1, value2, path));
-        } else if (!Object.hasOwn(data2, key)) {
-          acc.removed[path.join('')] = value1;
-        } else if (!Object.hasOwn(data1, key)) {
-          acc.added[path.join('')] = value2;
-        } else if (value1 !== value2) {
-          acc.changed[path.join('')] = { old: value1, new: value2 };
-        }
-        return acc;
-      },
-      { changed: {}, added: {}, removed: {} },
-    );
-  };
-
-  const res = iter(data1, data2, []);
-  return JSON.stringify(res, null, '  ');
-}
+export default jsonAssets;
