@@ -34,7 +34,7 @@ const stylishAssets = {
   getDefaultAcc() {
     return [];
   },
-  getNewIterValue(depth) {
+  getNewIterValue(/*depth*/) {
     return null;
     // return depth + 1;
   },
