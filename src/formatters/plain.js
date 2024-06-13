@@ -20,7 +20,7 @@ const plainAssets = {
   merge(acc, childAcc) {
     return [...acc, ...childAcc];
   },
-  addChanged(acc, key, value1, value2, pathArray) {
+  addChanged(acc, key, [value1, value2], pathArray) {
     const formatedVal1 = formatValue(value1);
     const formatedVal2 = formatValue(value2);
     return [

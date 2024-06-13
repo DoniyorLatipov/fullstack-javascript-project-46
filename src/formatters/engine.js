@@ -31,7 +31,7 @@ export default function formatterEngine(
       } else if (!Object.hasOwn(data2, key)) {
         acc = addRemoved(acc, key, value1, iterValue);
       } else if (value1 !== value2) {
-        acc = addChanged(acc, key, value1, value2, iterValue);
+        acc = addChanged(acc, key, [value1, value2], iterValue);
       } else {
         acc = addUnchanged(acc, key, value1, iterValue);
       }

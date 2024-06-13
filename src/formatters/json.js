@@ -13,7 +13,7 @@ const jsonAssets = {
   merge(acc, childAcc) {
     return _.merge(acc, childAcc);
   },
-  addChanged(acc, key, value1, value2, pathArray) {
+  addChanged(acc, key, [value1, value2], pathArray) {
     const newAcc = { ...acc };
     const path = getCurrentPath(pathArray, key);
     newAcc.changed[path] = { old: value1, new: value2 };

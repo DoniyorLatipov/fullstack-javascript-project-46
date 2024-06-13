@@ -30,17 +30,18 @@ const extractor = (el) => {
 };
 
 const stylishAssets = {
-  iterValue: 0,
+  iterValue: null,
   getDefaultAcc() {
     return [];
   },
   getNewIterValue(depth) {
-    return depth + 1;
+    return null;
+    // return depth + 1;
   },
   merge(acc, childAcc, key) {
     return [...acc, [' ', key, childAcc]];
   },
-  addChanged(acc, key, value1, value2) {
+  addChanged(acc, key, [value1, value2]) {
     const prop1 = ['-', key, extractor(value1)];
     const prop2 = ['+', key, extractor(value2)];
     return [...acc, prop1, prop2];
