@@ -1,6 +1,11 @@
 import _ from 'lodash';
 
-const getPath = (pathArray, key) => `${pathArray.join('')}['${key}']`;
+const set = (acc, type, pathArray, [key, value]) => {
+  const newAcc = { ...acc };
+  const path = `${pathArray.join('')}['${key}']`;
+  newAcc[type][path] = value;
+  return newAcc;
+};
 
 const jsonAssets = {
   iterValue: [],
@@ -14,19 +19,14 @@ const jsonAssets = {
     return _.merge(acc, childAcc);
   },
   addChanged(acc, key, [value1, value2], pathArray) {
-    const newAcc = { ...acc };
-    newAcc.changed[getPath(pathArray, key)] = { old: value1, new: value2 };
-    return newAcc;
+    const value = { old: value1, new: value2 };
+    return set(acc, 'changed', pathArray, [key, value]);
   },
   addAdded(acc, key, value2, pathArray) {
-    const newAcc = { ...acc };
-    newAcc.added[getPath(pathArray, key)] = value2;
-    return newAcc;
+    return set(acc, 'added', pathArray, [key, value2]);
   },
   addRemoved(acc, key, value1, pathArray) {
-    const newAcc = { ...acc };
-    newAcc.removed[getPath(pathArray, key)] = value1;
-    return newAcc;
+    return set(acc, 'removed', pathArray, [key, value1]);
   },
   addUnchanged(acc) {
     return acc;
