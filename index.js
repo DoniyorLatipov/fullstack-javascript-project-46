@@ -1,7 +1,7 @@
 import parse from './src/parse.js';
 import getDiff from './src/formatters/index.js';
 
-export default function difference(filepath1, filepath2, { format }) {
+export default function difference(filepath1, filepath2, { format = 'stylish' }) {
   const data1 = parse(filepath1);
   const data2 = parse(filepath2);
 
