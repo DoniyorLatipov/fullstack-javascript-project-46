@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const getCurrentPath = (pathArray, key) => `${pathArray.join('')}['${key}']`;
+const getPath = (pathArray, key) => `${pathArray.join('')}['${key}']`;
 
 const jsonAssets = {
   iterValue: [],
@@ -15,20 +15,17 @@ const jsonAssets = {
   },
   addChanged(acc, key, [value1, value2], pathArray) {
     const newAcc = { ...acc };
-    const path = getCurrentPath(pathArray, key);
-    newAcc.changed[path] = { old: value1, new: value2 };
+    newAcc.changed[getPath(pathArray, key)] = { old: value1, new: value2 };
     return newAcc;
   },
   addAdded(acc, key, value2, pathArray) {
     const newAcc = { ...acc };
-    const path = getCurrentPath(pathArray, key);
-    newAcc.added[path] = value2;
+    newAcc.added[getPath(pathArray, key)] = value2;
     return newAcc;
   },
   addRemoved(acc, key, value1, pathArray) {
     const newAcc = { ...acc };
-    const path = getCurrentPath(pathArray, key);
-    newAcc.removed[path] = value1;
+    newAcc.removed[getPath(pathArray, key)] = value1;
     return newAcc;
   },
   addUnchanged(acc) {
