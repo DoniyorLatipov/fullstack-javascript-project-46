@@ -7,4 +7,5 @@ export default function difference(filepath1, filepath2, { format } = {}) {
 
   const difference = getDiff(data1, data2, format ?? 'stylish');
   console.log(difference);
+  return difference;
 }
