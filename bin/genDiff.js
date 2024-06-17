@@ -8,7 +8,6 @@ program
   .argument('<filepath1>')
   .argument('<filepath2>')
   .version('1.0.0', '-V, --version', 'output the version number')
-  .default('format', 'stylish')
   .option('-f, --format  [type]', 'output format', 'stylish')
   .action(difference)
   .helpOption('-h, --help', 'output usage information');
