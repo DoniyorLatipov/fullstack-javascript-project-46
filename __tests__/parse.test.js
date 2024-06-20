@@ -1,80 +1,54 @@
-/* global describe, test, expect, beforeAll, afterAll */
+/* global describe, test, expect*/
 import parse from '../src/parse.js';
 
 describe("parse's main flow", () => {
-  describe('parse JSON file', () => {
-    test('parse plane file', () => {
-      const fileData = '{\n  "host": "hexlet.io",\n  "timeout": 10\n}\n';
-      const data = parse(fileData, '.json');
+  describe('parse plane file', () => {
+    const jsonData = '{\n  "host": "hexlet.io",\n  "timeout": 10\n}\n';
+    const yamlData = '---\nhost: hexlet.io\ntimeout: 10\n';
+    const iniData = 'host=hexlet.io\ntimeout=10\n';
 
-      expect(data).toStrictEqual({
-        host: 'hexlet.io',
-        timeout: 10,
-      });
+    const expected = {
+      host: 'hexlet.io',
+      timeout: 10,
+    };
+
+    test('parse JSON file', () => {
+      expect(parse(jsonData, '.json')).toStrictEqual(expected);
     });
 
-    test('parse nested file', () => {
-      const fileData =
-        '{\n  "host": "hexlet.io",\n  "system": {\n   "time": 128,\n    "os": "Linux"\n  }\n}\n';
-      const data = parse(fileData, '.json');
+    test('parse YAML file', () => {
+      expect(parse(yamlData, '.yml')).toStrictEqual(expected);
+    });
 
-      expect(data).toStrictEqual({
-        host: 'hexlet.io',
-        system: {
-          time: 128,
-          os: 'Linux',
-        },
-      });
+    test('parse INI file', () => {
+      expect(parse(iniData, '.ini')).toStrictEqual(expected);
     });
   });
 
-  describe('parse YAML file', () => {
-    test('parse plane file', () => {
-      const fileData = '---\nhost: hexlet.io\ntimeout: 10\n';
-      const data = parse(fileData, '.yml');
+  describe('parse nested file', () => {
+    const jsonData =
+      '{\n  "host": "hexlet.io",\n  "system": {\n   "time": 128,\n    "os": "Linux"\n  }\n}\n';
+    const yamlData = '---\nhost: hexlet.io\nsystem:\n  time: 128\n  os: Linux\n';
+    const iniData = 'host=hexlet.io\n\n[system]\ntime=128\nos=Linux';
 
-      expect(data).toStrictEqual({
-        host: 'hexlet.io',
-        timeout: 10,
-      });
+    const expected = {
+      host: 'hexlet.io',
+      system: {
+        time: 128,
+        os: 'Linux',
+      },
+    };
+
+    test('parse JSON file', () => {
+      expect(parse(jsonData, '.json')).toStrictEqual(expected);
     });
 
-    test('parse nested file', () => {
-      const fileData = '---\nhost: hexlet.io\nsystem:\n  time: 128\n  os: Linux\n';
-      const data = parse(fileData, '.yaml');
-
-      expect(data).toStrictEqual({
-        host: 'hexlet.io',
-        system: {
-          time: 128,
-          os: 'Linux',
-        },
-      });
-    });
-  });
-
-  describe('parse INI file', () => {
-    test('parse plane file', () => {
-      const fileData = 'host=hexlet.io\ntimeout=10\n';
-      const data = parse(fileData, '.ini');
-
-      expect(data).toStrictEqual({
-        host: 'hexlet.io',
-        timeout: 10,
-      });
+    test('parse YAML file', () => {
+      expect(parse(yamlData, '.yml')).toStrictEqual(expected);
     });
 
-    test('parse nested file', () => {
-      const fileData = 'host=hexlet.io\n\n[system]\ntime=128\nos=Linux';
-      const data = parse(fileData, '.ini');
-
-      expect(data).toStrictEqual({
-        host: 'hexlet.io',
-        system: {
-          time: 128,
-          os: 'Linux',
-        },
-      });
+    test('parse INI file', () => {
+      expect(parse(iniData, '.ini')).toStrictEqual(expected);
     });
   });
 });
