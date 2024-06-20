@@ -11,6 +11,6 @@ export default function parse(data, extname) {
     case '.ini':
       return JSON.parse(JSON.stringify(ini.parse(data)));
     default:
-      throw new Error(`Unexpected file format, open ${path} (${format})`);
+      throw new Error(`Unexpected file format (${extname})`);
   }
 }
