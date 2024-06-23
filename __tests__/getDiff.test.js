@@ -2,102 +2,67 @@
 import getDiff from '../src/formatters/index.js';
 
 describe("getDiff's main flow", () => {
-  describe('getDiff plane', () => {
-    const data1 = { host: 'hexlet.io', timeout: 10 };
-    const data2 = { timeout: 20, verbose: true, host: 'hexlet.io' };
-
-    test('stylish format', () => {
-      expect(getDiff(data1, data2, 'stylish')).toBe(`{
-    host: hexlet.io
-  - timeout: 10
-  + timeout: 20
-  + verbose: true
-}`);
-    });
-
-    test('plain format', () => {
-      expect(getDiff(data1, data2, 'plain')).toBe(`Property 'timeout' was updated. From 10 to 20
-Property 'verbose' was added with value: true`);
-    });
-
-    test('stylish format', () => {
-      expect(getDiff(data1, data2, 'json')).toBe(`{
-  "changed": {
-    "['timeout']": {
-      "old": 10,
-      "new": 20
-    }
-  },
-  "added": {
-    "['verbose']": true
-  },
-  "removed": {}
-}`);
-    });
-  });
-
-  describe('getDiff nested', () => {
-    const data1 = {
-      common: {
-        setting1: 'Value 1',
-        setting2: 200,
-        setting3: true,
-        setting6: {
-          key: {},
-          doge: {
-            wow: '',
-          },
+  const data1 = {
+    common: {
+      setting1: 'Value 1',
+      setting2: 200,
+      setting3: true,
+      setting6: {
+        key: {},
+        doge: {
+          wow: '',
         },
       },
-      group1: {
-        baz: 'bas',
-        foo: 'bar',
-        nest: {
-          key: 'value',
-        },
+    },
+    group1: {
+      baz: 'bas',
+      foo: 'bar',
+      nest: {
+        key: 'value',
       },
-      group2: {
-        abc: 12345,
-        deep: {
-          id: 45,
-        },
+    },
+    group2: {
+      abc: 12345,
+      deep: {
+        id: 45,
       },
-    };
+    },
+  };
 
-    const data2 = {
-      common: {
-        follow: false,
-        setting1: 'Value 1',
-        setting3: null,
-        setting4: 'blah blah',
-        setting5: {
-          key5: 'value5',
-        },
-        setting6: {
-          key: {},
-          ops: 'vops',
-          doge: {
-            wow: 'so much',
-          },
+  const data2 = {
+    common: {
+      follow: false,
+      setting1: 'Value 1',
+      setting3: null,
+      setting4: 'blah blah',
+      setting5: {
+        key5: 'value5',
+      },
+      setting6: {
+        key: {},
+        ops: 'vops',
+        doge: {
+          wow: 'so much',
         },
       },
-      group1: {
-        foo: 'bar',
-        baz: 'bars',
-        nest: 'str',
-      },
-      group3: {
-        deep: {
-          id: {
-            number: 45,
-          },
+    },
+    group1: {
+      foo: 'bar',
+      baz: 'bars',
+      nest: 'str',
+    },
+    group3: {
+      deep: {
+        id: {
+          number: 45,
         },
-        fee: 100500,
       },
-    };
+      fee: 100500,
+    },
+  };
 
-    test('stylish format', () => {
-      expect(getDiff(data1, data2, 'stylish')).toBe(`{
+  test('stylish format', () => {
+    expect(getDiff(data1, data2, 'stylish')).toBe(`{
     common: {
       + follow: false
         setting1: Value 1
@@ -141,11 +106,11 @@ Property 'verbose' was added with value: true`);
         fee: 100500
     }
 }`);
-    });
+  });
 
-    test('plain format', () => {
-      expect(getDiff(data1, data2, 'plain'))
-        .toBe(`Property 'common.follow' was added with value: false
+  test('plain format', () => {
+    expect(getDiff(data1, data2, 'plain'))
+      .toBe(`Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
 Property 'common.setting3' was updated. From true to null
 Property 'common.setting4' was added with value: 'blah blah'
@@ -156,10 +121,10 @@ Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`);
-    });
+  });
 
-    test('json format', () => {
-      expect(getDiff(data1, data2, 'json')).toBe(`{
+  test('json format', () => {
+    expect(getDiff(data1, data2, 'json')).toBe(`{
   "changed": {
     "['common']['setting3']": {
       "old": true,
@@ -206,7 +171,6 @@ Property 'group3' was added with value: [complex value]`);
     }
   }
 }`);
-    });
   });
 });
 
