@@ -9,13 +9,11 @@ const getData = (filepath) => {
   return data;
 };
 
-const getExtname = path.extname;
-
 export default function difference(filepath1, filepath2, { format }) {
   const fileData1 = getData(filepath1);
   const fileData2 = getData(filepath2);
-  const extname1 = getExtname(filepath1);
-  const extname2 = getExtname(filepath2);
+  const extname1 = path.extname(filepath1);
+  const extname2 = path.extname(filepath2);
 
   const obj1 = parse(fileData1, extname1);
   const obj2 = parse(fileData2, extname2);
