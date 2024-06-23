@@ -7,6 +7,10 @@ publish:
 link:
 	npm link
 
+build:
+	npm ci
+	npm link	
+
 lint:
 	npx eslint .
 
