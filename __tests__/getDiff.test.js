@@ -126,19 +126,19 @@ Property 'group3' was added with value: [complex value]`);
   test('json format', () => {
     expect(getDiff(data1, data2, 'json')).toBe(`{
   "changed": {
-    "['common']['setting3']": {
+    "common.setting3": {
       "old": true,
       "new": null
     },
-    "['common']['setting6']['doge']['wow']": {
+    "common.setting6.doge.wow": {
       "old": "",
       "new": "so much"
     },
-    "['group1']['baz']": {
+    "group1.baz": {
       "old": "bas",
       "new": "bars"
     },
-    "['group1']['nest']": {
+    "group1.nest": {
       "old": {
         "key": "value"
       },
@@ -146,13 +146,13 @@ Property 'group3' was added with value: [complex value]`);
     }
   },
   "added": {
-    "['common']['follow']": false,
-    "['common']['setting4']": "blah blah",
-    "['common']['setting5']": {
+    "common.follow": false,
+    "common.setting4": "blah blah",
+    "common.setting5": {
       "key5": "value5"
     },
-    "['common']['setting6']['ops']": "vops",
-    "['group3']": {
+    "common.setting6.ops": "vops",
+    "group3": {
       "deep": {
         "id": {
           "number": 45
@@ -162,8 +162,8 @@ Property 'group3' was added with value: [complex value]`);
     }
   },
   "removed": {
-    "['common']['setting2']": 200,
-    "['group2']": {
+    "common.setting2": 200,
+    "group2": {
       "abc": 12345,
       "deep": {
         "id": 45
