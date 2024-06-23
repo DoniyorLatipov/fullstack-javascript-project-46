@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const set = (acc, type, pathArray, [key, value]) => {
   const newAcc = { ...acc };
-  const path = `${pathArray.join('')}['${key}']`;
+  const path = [...pathArray, key].join('.');
   newAcc[type][path] = value;
   return newAcc;
 };
@@ -13,7 +13,7 @@ const jsonAssets = {
     return { changed: {}, added: {}, removed: {} };
   },
   getNewIterValue(pathArray, key) {
-    return [...pathArray, `['${key}']`];
+    return [...pathArray, key];
   },
   merge(acc, childAcc) {
     return _.merge(acc, childAcc);
