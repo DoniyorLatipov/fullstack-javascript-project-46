@@ -11,7 +11,7 @@
 
 Node.js console-based application for generating diff between configuration files. Supported formats: JSON, YAML, INI (XML soon).
 
-###Installation:
+### Installation:
 
 ```bash
 make build
