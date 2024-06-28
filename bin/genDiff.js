@@ -9,8 +9,8 @@ program
   .argument('<filepath2>')
   .version('1.0.0', '-V, --version', 'output the version number')
   .option('-f, --format  [type]', 'output format', 'stylish')
-  .action((filepath1, filepath2) => {
-    const diff = difference(filepath1, filepath2, program.format);
+  .action((filepath1, filepath2, options) => {
+    const diff = difference(filepath1, filepath2, options.format);
     console.log(diff);
   })
   .helpOption('-h, --help', 'output usage information');
