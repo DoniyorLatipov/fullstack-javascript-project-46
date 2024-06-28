@@ -9,7 +9,7 @@ const getData = (filepath) => {
   return data;
 };
 
-export default function difference(filepath1, filepath2, { format }) {
+export default function difference(filepath1, filepath2, format = 'stylish') {
   const fileData1 = getData(filepath1);
   const fileData2 = getData(filepath2);
   const extname1 = path.extname(filepath1);
@@ -19,5 +19,5 @@ export default function difference(filepath1, filepath2, { format }) {
   const obj2 = parse(fileData2, extname2);
 
   const difference = getDiff(obj1, obj2, format);
-  console.log(difference);
+  return difference;
 }
