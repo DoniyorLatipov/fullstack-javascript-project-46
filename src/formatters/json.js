@@ -1,9 +1,8 @@
 import _ from 'lodash';
 
 const set = (acc, type, pathArray, [key, value]) => {
-  const newAcc = { ...acc };
   const path = [...pathArray, key].join('.');
-  newAcc[type][path] = value;
+  const newAcc = _.set(_.cloneDeep(acc), `${type}['${path}']`, value);
   return newAcc;
 };
 
