@@ -22,21 +22,21 @@ export default function formatterEngine(
     return keys.reduce((acc, key) => {
       const value1 = obj1[key];
       const value2 = obj2[key];
-      let newAcc = acc;
 
-      if (_.isObject(value1) && _.isObject(value2)) {
-        const newIterValue = getNewIterValue(initialIterValue, key);
-        newAcc = merge(acc, iter(value1, value2, newIterValue), key);
-      } else if (!Object.hasOwn(obj1, key)) {
-        newAcc = addAdded(acc, key, value2, initialIterValue);
-      } else if (!Object.hasOwn(obj2, key)) {
-        newAcc = addRemoved(acc, key, value1, initialIterValue);
-      } else if (value1 !== value2) {
-        newAcc = addChanged(acc, key, [value1, value2], initialIterValue);
-      } else {
-        newAcc = addUnchanged(acc, key, value1, initialIterValue);
+      switch (true) {
+        case _.isObject(value1) && _.isObject(value2): {
+          const newIterValue = getNewIterValue(initialIterValue, key);
+          return merge(acc, iter(value1, value2, newIterValue), key);
+        }
+        case !Object.hasOwn(obj1, key):
+          return addAdded(acc, key, value2, initialIterValue);
+        case !Object.hasOwn(obj2, key):
+          return addRemoved(acc, key, value1, initialIterValue);
+        case value1 !== value2:
+          return addChanged(acc, key, [value1, value2], initialIterValue);
+        default:
+          return addUnchanged(acc, key, value1, initialIterValue);
       }
-      return newAcc;
     }, getDefaultAcc());
   };
 
