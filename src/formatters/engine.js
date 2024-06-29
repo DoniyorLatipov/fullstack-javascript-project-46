@@ -12,20 +12,21 @@ export default function formatterEngine(
     return keys.reduce((acc, key) => {
       const value1 = obj1[key];
       const value2 = obj2[key];
+      let newAcc = acc;
 
       if (_.isObject(value1) && _.isObject(value2)) {
         const newIterValue = getNewIterValue(initialIterValue, key);
-        acc = merge(acc, iter(value1, value2, newIterValue), key);
+        newAcc = merge(acc, iter(value1, value2, newIterValue), key);
       } else if (!Object.hasOwn(obj1, key)) {
-        acc = addAdded(acc, key, value2, initialIterValue);
+        newAcc = addAdded(acc, key, value2, initialIterValue);
       } else if (!Object.hasOwn(obj2, key)) {
-        acc = addRemoved(acc, key, value1, initialIterValue);
+        newAcc = addRemoved(acc, key, value1, initialIterValue);
       } else if (value1 !== value2) {
-        acc = addChanged(acc, key, [value1, value2], initialIterValue);
+        newAcc = addChanged(acc, key, [value1, value2], initialIterValue);
       } else {
-        acc = addUnchanged(acc, key, value1, initialIterValue);
+        newAcc = addUnchanged(acc, key, value1, initialIterValue);
       }
-      return acc;
+      return newAcc;
     }, getDefaultAcc());
   };
 
