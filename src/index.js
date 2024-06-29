@@ -18,6 +18,6 @@ export default function difference(filepath1, filepath2, format = 'stylish') {
   const obj1 = parse(fileData1, extname1);
   const obj2 = parse(fileData2, extname2);
 
-  const difference = getDiff(obj1, obj2, format);
-  return difference;
+  const diff = getDiff(obj1, obj2, format);
+  return diff;
 }
