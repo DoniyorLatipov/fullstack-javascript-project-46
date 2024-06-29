@@ -1,13 +1,14 @@
 import _ from 'lodash';
 
 function formatValue(value) {
-  let res = value;
-  if (_.isObject(value)) {
-    res = '[complex value]';
-  } else if (_.isString(value)) {
-    res = `'${value}'`;
+  switch (true) {
+    case _.isObject(value):
+      return '[complex value]';
+    case _.isString(value):
+      return `'${value}'`;
+    default:
+      return value;
   }
-  return res;
 }
 
 const plainAssets = {
