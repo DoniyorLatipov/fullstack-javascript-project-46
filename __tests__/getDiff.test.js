@@ -1,4 +1,3 @@
-/* global describe, test, expect */
 import getDiff from '../src/formatters/index.js';
 
 describe("getDiff's main flow", () => {

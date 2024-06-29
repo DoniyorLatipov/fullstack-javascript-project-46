@@ -1,4 +1,3 @@
-/* global describe, test, expect*/
 import parse from '../src/parse.js';
 
 describe("parse's main flow", () => {
