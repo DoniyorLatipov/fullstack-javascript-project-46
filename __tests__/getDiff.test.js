@@ -175,10 +175,10 @@ Property 'group3' was added with value: [complex value]`);
 
 describe("getDiff's invalid format", () => {
   test('empty format', () => {
-    expect(() => getDiff({}, {}, '')).toThrowError();
+    expect(() => getDiff({}, {}, '')).toThrow();
   });
 
   test('unknown format', () => {
-    expect(() => getDiff({}, {}, 'stplain')).toThrowError();
+    expect(() => getDiff({}, {}, 'stplain')).toThrow();
   });
 });

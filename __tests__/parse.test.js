@@ -34,14 +34,14 @@ describe("parse's main flow", () => {
 
 describe('parse invalid file', () => {
   test('parse isEmpty', () => {
-    expect(() => parse()).toThrowError();
+    expect(() => parse()).toThrow();
   });
 
   test('parse invalid file type', () => {
-    expect(() => parse('{"host": "hexlet.io"}', '.exe')).toThrowError();
+    expect(() => parse('{"host": "hexlet.io"}', '.exe')).toThrow();
   });
 
   test('parse invalid file data', () => {
-    expect(() => parse('{{"host": "hexlet.io"}', '.json')).toThrowError();
+    expect(() => parse('{{"host": "hexlet.io"}', '.json')).toThrow();
   });
 });
