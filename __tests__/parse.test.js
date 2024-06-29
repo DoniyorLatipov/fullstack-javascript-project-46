@@ -1,8 +1,13 @@
 import parse from '../src/parse.js';
 
 describe("parse's main flow", () => {
-  const jsonData =
-    '{\n  "host": "hexlet.io",\n  "system": {\n   "time": 128,\n    "os": "Linux"\n  }\n}\n';
+  const jsonData = `{
+  "host": "hexlet.io",
+  "system": {
+   "time": 128,
+    "os": "Linux"
+  }
+}`;
   const yamlData = '---\nhost: hexlet.io\nsystem:\n  time: 128\n  os: Linux\n';
   const iniData = 'host=hexlet.io\n\n[system]\ntime=128\nos=Linux';
 
