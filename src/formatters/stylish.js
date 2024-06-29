@@ -24,9 +24,7 @@ const extractor = (el) => {
   }
 
   const children = Object.entries(el);
-  return children.map(([key, value]) => {
-    return [' ', key, extractor(value)];
-  });
+  return children.map(([key, value]) => [' ', key, extractor(value)]);
 };
 
 const stylishAssets = {
@@ -34,9 +32,8 @@ const stylishAssets = {
   getDefaultAcc() {
     return [];
   },
-  getNewIterValue(/*depth*/) {
+  getNewIterValue() {
     return null;
-    // return depth + 1;
   },
   merge(acc, childAcc, key) {
     return [...acc, [' ', key, childAcc]];
