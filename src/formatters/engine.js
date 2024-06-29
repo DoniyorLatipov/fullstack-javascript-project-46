@@ -4,7 +4,17 @@ import getKeys from '../getKeys.js';
 export default function formatterEngine(
   data1,
   data2,
-  { iterValue, getDefaultAcc, getNewIterValue, merge, addChanged, addAdded, addRemoved, addUnchanged, convert },
+  {
+    iterValue,
+    getDefaultAcc,
+    getNewIterValue,
+    merge,
+    addChanged,
+    addAdded,
+    addRemoved,
+    addUnchanged,
+    convert,
+  },
 ) {
   const iter = (obj1, obj2, initialIterValue) => {
     const keys = getKeys(obj1, obj2);
