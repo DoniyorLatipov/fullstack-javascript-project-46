@@ -24,14 +24,15 @@
   },
   "homepage": "https://github.com/DoniyorLatipov/fullstack-javascript-project-46#readme",
   "dependencies": {
-    "commander": "^12.1.0",
-    "js-ini": "^1.6.0",
-    "js-yaml": "^4.1.0",
-    "lodash": "^4.17.21",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.6.0",
+    "commander": "^12.1.0",
     "eslint-plugin-import": "^2.29.1",
-    "globals": "^15.6.0"
+    "fast-xml-parser": "^4.4.0",
+    "globals": "^15.6.0",
+    "js-ini": "^1.6.0",
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@eslint/create-config": "^1.0.0",
