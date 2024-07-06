@@ -22,6 +22,15 @@ system:
 time=128
 os=Linux`;
 
+  const xmlData = `<?xml version="1.0" encoding="UTF-8" ?>
+ <root>
+     <host>hexlet.io</host>
+     <system>
+         <time>128</time>
+         <os>Linux</os>
+     </system>
+ </root>`;
+
   const expected = {
     host: 'hexlet.io',
     system: {
@@ -40,6 +49,10 @@ os=Linux`;
 
   test('parse INI file', () => {
     expect(parse(iniData, '.ini')).toStrictEqual(expected);
+  });
+
+  test('parse INI file', () => {
+    expect(parse(xmlData, '.xml')).toStrictEqual(expected);
   });
 });
 
