@@ -1,4 +1,4 @@
-import parse from '../src/parse.js';
+import parse from '../src/parse/parse.js';
 
 describe("parse's main flow", () => {
   const jsonData = `{
