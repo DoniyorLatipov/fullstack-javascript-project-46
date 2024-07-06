@@ -1,5 +1,6 @@
 import yaml from 'js-yaml';
 import iniParse from './iniParse.js';
+import xmlParse from './xmlParse.js';
 
 export default function parse(data, extname) {
   switch (extname) {
@@ -10,6 +11,8 @@ export default function parse(data, extname) {
       return yaml.load(data);
     case '.ini':
       return iniParse(data);
+    case '.xml':
+      return xmlParse(data);
     default:
       throw new Error(`Unexpected file format (${extname})`);
   }
