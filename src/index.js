@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import parse from './parse/parse.js';
+import parse from './parse/index.js';
 import getDiff from './formatters/index.js';
 
 const getData = (filepath) => {
