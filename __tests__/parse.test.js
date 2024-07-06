@@ -8,8 +8,19 @@ describe("parse's main flow", () => {
     "os": "Linux"
   }
 }`;
-  const yamlData = '---\nhost: hexlet.io\nsystem:\n  time: 128\n  os: Linux\n';
-  const iniData = 'host=hexlet.io\n\n[system]\ntime=128\nos=Linux';
+
+  const yamlData = `---
+host: hexlet.io
+system:
+  time: 128
+  os: Linux
+`;
+
+  const iniData = `host=hexlet.io
+
+[system]
+time=128
+os=Linux`;
 
   const expected = {
     host: 'hexlet.io',
