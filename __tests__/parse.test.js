@@ -39,21 +39,10 @@ os=Linux`;
     },
   };
 
-  test('parse JSON file', () => {
-    expect(parse(jsonData, '.json')).toStrictEqual(expected);
-  });
-
-  test('parse YAML file', () => {
-    expect(parse(yamlData, '.yml')).toStrictEqual(expected);
-  });
-
-  test('parse INI file', () => {
-    expect(parse(iniData, '.ini')).toStrictEqual(expected);
-  });
-
-  test('parse INI file', () => {
-    expect(parse(xmlData, '.xml')).toStrictEqual(expected);
-  });
+  expect(parse(jsonData, '.json')).toStrictEqual(expected);
+  expect(parse(yamlData, '.yml')).toStrictEqual(expected);
+  expect(parse(iniData, '.ini')).toStrictEqual(expected);
+  expect(parse(xmlData, '.xml')).toStrictEqual(expected);
 });
 
 describe('parse invalid file', () => {
