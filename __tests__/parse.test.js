@@ -1,6 +1,6 @@
 import parse from '../src/parse/index.js';
 
-describe("parse's main flow", () => {
+test("parse's main flow", () => {
   const jsonData = `{
   "host": "hexlet.io",
   "system": {
