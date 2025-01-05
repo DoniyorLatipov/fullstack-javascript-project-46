@@ -9,7 +9,7 @@
 
 ### Description:
 
-Node.js console-based application for generating diff between configuration files. Supported formats: JSON, YAML, INI (XML soon).
+Node.js console-based application for generating diff between configuration files. Supported formats: JSON, YAML, INI, XML.
 
 ### Installation:
 
